@@ -18,6 +18,45 @@ Bunxios is a lightweight HTTP client library based on the native `fetch` API, de
 
 ## 📦 Installation
 
+> **Note**: This package is not yet published to npm. You can install it locally from the source code.
+
+### Install from source
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd bunxios
+
+# Install dependencies
+bun install
+
+# Build the project
+bun run build
+```
+
+### Use in your project
+
+After building, you can link it locally:
+
+```bash
+# In the bunxios directory
+bun link
+
+# In your project directory
+bun link bunxios
+```
+
+Or install directly from the local path:
+
+```bash
+# In your project
+bun add ./path/to/bunxios
+```
+
+### After publishing (coming soon)
+
+Once published, you'll be able to install via:
+
 ```bash
 bun add bunxios
 # or
@@ -139,6 +178,17 @@ client.interceptors.response.use(
 ### 🧩 CLI Template Generator
 
 Bunxios provides a CLI tool to quickly generate standardized Service layer code.
+
+**Before publishing:**
+
+```bash
+# Run directly from source
+bun run src/bin/bunxios.ts generate product
+# Or using the alias
+bun run src/bin/bunxios.ts g product
+```
+
+**After publishing:**
 
 ```bash
 # Generate product module code
