@@ -13,7 +13,10 @@
     "build": "bun run build.ts"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "README_CN.md",
+    "LICENSE"
   ],
   "exports": {
     ".": {

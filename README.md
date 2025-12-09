@@ -1,95 +1,95 @@
-# Bunxios - 轻量级 HTTP 客户端
+# Bunxios - Lightweight HTTP Client
 
-[English](./README_EN.md) | [简体中文](./README.md)
+[English](./README.md) | [简体中文](./README_CN.md)
 
-## 📖 概述
+## 📖 Overview
 
-Bunxios 是一个基于原生 `fetch` API 封装的轻量级 HTTP 请求库，专为现代前端应用和 Bun/Node.js 环境设计。它提供了类似 Axios 的 API 体验，但体积更小，且原生支持 TypeScript。
+Bunxios is a lightweight HTTP client library based on the native `fetch` API, designed for modern frontend applications and Bun/Node.js environments. It offers an Axios-like API experience but with a smaller footprint and native TypeScript support.
 
-## ✨ 核心特性
+## ✨ Key Features
 
-- 🔄 **请求中断** - 支持 `AbortController` 取消请求
-- 💾 **内置缓存** - 内存缓存机制，支持自定义 TTL
-- 🔁 **自动重试** - 支持指数退避算法的自动重试机制
-- 🚦 **并发控制** - 内置并发请求数量限制
-- 📊 **SSE 支持** - 原生支持服务器发送事件（Server-Sent Events）流式处理
-- 📦 **TypeScript** - 完全使用 TypeScript 编写，提供完整的类型定义
-- 🚀 **轻量高效** - 基于 Fetch API，零第三方运行时依赖
+- 🔄 **Request Cancellation** - Abort requests via `AbortController`
+- 💾 **Built-in Caching** - Memory caching mechanism with custom TTL
+- 🔁 **Auto Retry** - Automatic retry with exponential backoff strategy
+- 🚦 **Concurrency Control** - Built-in request concurrency limiting
+- 📊 **SSE Support** - Native support for Server-Sent Events streaming
+- 📦 **TypeScript** - Written in TypeScript with complete type definitions
+- 🚀 **Lightweight** - Zero third-party runtime dependencies
 
-## 📦 安装
+## 📦 Installation
 
-> **注意**: 此包尚未发布到 npm。您可以从源代码本地安装。
+> **Note**: This package is not yet published to npm. You can install it locally from the source code.
 
-### 从源码安装
+### Install from source
 
 ```bash
-# 克隆仓库
+# Clone the repository
 git clone <repository-url>
 cd bunxios
 
-# 安装依赖
+# Install dependencies
 bun install
 
-# 构建项目
+# Build the project
 bun run build
 ```
 
-### 在项目中使用
+### Use in your project
 
-构建完成后，您可以本地链接：
+After building, you can link it locally:
 
 ```bash
-# 在 bunxios 目录中
+# In the bunxios directory
 bun link
 
-# 在您的项目目录中
+# In your project directory
 bun link bunxios
 ```
 
-或者直接从本地路径安装：
+Or install directly from the local path:
 
 ```bash
-# 在您的项目中
+# In your project
 bun add ./path/to/bunxios
 ```
 
-### 发布后（即将推出）
+### After publishing (coming soon)
 
-发布后，您可以通过以下方式安装：
+Once published, you'll be able to install via:
 
 ```bash
 bun add bunxios
-# 或者
+# or
 npm install bunxios
 ```
 
-## 🚀 快速开始
+## 🚀 Quick Start
 
-### 基础用法
+### Basic Usage
 
 ```typescript
 import { HttpClient } from 'bunxios';
 
-// 创建实例
+// Create instance
 const client = new HttpClient({
   baseURL: 'https://api.example.com',
   timeout: 10000,
 });
 
-// GET 请求
+// GET Request
 const response = await client.get('/users');
 console.log(response.data);
 
-// POST 请求
+// POST Request
 const newUser = await client.post('/users', {
   name: 'John',
   email: 'john@example.com'
 });
 ```
 
-## 📚 API 方法列表
+## 📚 API Methods
 
-### 标准 RESTful 方法
+### Standard RESTful Methods
 
 - `get<T>(url, config?)`
 - `post<T>(url, data?, config?)`
@@ -99,112 +99,112 @@ const newUser = await client.post('/users', {
 - `head<T>(url, config?)`
 - `options<T>(url, config?)`
 
-### 表单与文件上传
+### Forms & File Uploads
 
 - `postForm<T>(url, data?, config?)`
 - `putForm<T>(url, data?, config?)`
 - `patchForm<T>(url, data?, config?)`
 
-### 高级功能
+### Advanced
 
-- `sse<T>(url, config?)` - SSE 流式数据接收
+- `sse<T>(url, config?)` - Consume SSE streams via async generator
 
-## 🔧 详细配置
+## 🔧 Configuration & Features
 
-### 请求缓存
+### Request Caching
 
-Bunxios 内置了简单的内存缓存功能。
+Bunxios includes a simple in-memory caching feature.
 
 ```typescript
-// 启用缓存，默认 5 分钟
+// Enable cache, default 5 minutes
 await client.get('/config', {
   cache: true,
-  cacheTime: 300000, // 5 分钟
+  cacheTime: 300000, // 5 minutes
 });
 
-// 自定义缓存键
+// Custom cache key
 await client.get('/user-settings', {
   cache: true,
   cacheKey: 'user-settings-v1'
 });
 ```
 
-### 自动重试
+### Auto Retry
 
-网络不稳定时自动重试，支持指数退避策略。
+Automatically retry requests when network fails, with exponential backoff.
 
 ```typescript
-// 失败自动重试 3 次
+// Retry 3 times on failure
 await client.get('/api/data', {
   retry: 3,
-  retryDelay: 1000 // 初始延迟 1 秒
+  retryDelay: 1000 // Initial delay 1 second
 });
 ```
 
-### 并发控制
+### Concurrency Control
 
-在初始化时设置最大并发数。
+Set maximum concurrent requests during initialization.
 
 ```typescript
 const client = new HttpClient({
   baseURL: '/api',
-  concurrency: 5 // 最多同时 5 个请求
+  concurrency: 5 // Max 5 concurrent requests
 });
 ```
 
-### 拦截器
+### Interceptors
 
-支持请求和响应拦截器。
+Support for request and response interceptors.
 
 ```typescript
-// 请求拦截器
+// Request Interceptor
 client.interceptors.request.use(config => {
   config.headers['Authorization'] = 'Bearer token';
   return config;
 });
 
-// 响应拦截器
+// Response Interceptor
 client.interceptors.response.use(
   response => response,
   error => {
     if (error.status === 401) {
-      // 处理未授权
+      // Handle unauthorized
     }
     throw error;
   }
 );
 ```
 
-### 🧩 CLI 模板生成器
+### 🧩 CLI Template Generator
 
-Bunxios 提供了一个 CLI 工具，用于快速生成符合规范的 Service 层代码。
+Bunxios provides a CLI tool to quickly generate standardized Service layer code.
 
-**发布前：**
+**Before publishing:**
 
 ```bash
-# 直接从源码运行
+# Run directly from source
 bun run src/bin/bunxios.ts generate product
-# 或者简写
+# Or using the alias
 bun run src/bin/bunxios.ts g product
 ```
 
-**发布后：**
+**After publishing:**
 
 ```bash
-# 生成产品模块代码
+# Generate product module code
 bunx bunxios generate product
-# 或者简写
+# Or using the alias
 bunx bunxios g product
 ```
 
-该命令将在 `src/modules/product/services/` 目录下生成 `product.service.ts` 文件，包含基础的 CRUD 方法和类型定义。
+This command will generate a `product.service.ts` file in the `src/modules/product/services/` directory, including basic CRUD methods and type definitions.
 
-生成的代码示例：
+Generated code example:
 
 ```typescript
 import { HttpClient } from 'bunxios';
 
-// TODO: 建议替换为全局配置的实例
+// TODO: Replace with your globally configured instance
 const http = new HttpClient({ baseURL: '/api' });
 
 export interface Product {
@@ -219,25 +219,25 @@ export class ProductService {
     const response = await http.get<Product[]>(this.baseUrl, { params });
     return response.data;
   }
-  // ... 其他 CRUD 方法
+  // ... other CRUD methods
 }
 ```
 
-### SSE 流式处理
+### SSE Streaming
 
-方便地处理 Server-Sent Events，特别适合 AI 对话等场景。
+Easily handle Server-Sent Events, perfect for AI chat scenarios.
 
 ```typescript
-// AI 聊天流式响应
+// Stream AI chat response
 const stream = client.sse<ChatMessage>('/chat/stream', {
   params: { prompt: 'Hello' }
 });
 
 for await (const message of stream) {
-  console.log('接收到消息:', message.content);
+  console.log('Received:', message.content);
 }
 ```
 
-## 📝 许可证
+## 📝 License
 
 MIT License
