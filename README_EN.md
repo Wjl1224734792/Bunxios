@@ -1,6 +1,6 @@
 # Bxios - Lightweight HTTP Client
 
-[English Documentation](./README_EN.md) | [中文文档](./README.md)
+[English](./README_EN.md) | [简体中文](./README.md)
 
 ## 📖 Overview
 
@@ -191,4 +191,3 @@ for await (const message of stream) {
 ## 📝 License
 
 MIT License
-

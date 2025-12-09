@@ -1,6 +1,6 @@
 # Bxios - 轻量级 HTTP 客户端
 
-[English Documentation](./README_EN.md) | [中文文档](./README.md)
+[English](./README_EN.md) | [简体中文](./README.md)
 
 ## 📖 概述
 
