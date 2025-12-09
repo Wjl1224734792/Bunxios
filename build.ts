@@ -10,7 +10,7 @@ await build({
   outdir: "./dist",
   target: "bun",
   format: "esm",
-  sourcemap: "external",
+  sourcemap: "none",
   minify: true,
 });
 
@@ -20,7 +20,7 @@ await build({
   outdir: "./dist/bin",
   target: "bun",
   format: "esm",
-  sourcemap: "external",
+  sourcemap: "none",
   minify: true,
 });
 
